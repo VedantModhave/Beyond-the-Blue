@@ -117,30 +117,36 @@ export default function Hero() {
 
           {/* Headline */}
           <h1
-            className="font-display leading-none mb-6"
+            className="font-display leading-none mb-6 flex flex-wrap"
             style={{
-              fontSize: 'clamp(4rem, 10vw, 9rem)',
+              fontSize: 'clamp(3.2rem, 8vw, 9rem)',
               perspective: '600px',
             }}
           >
-            {HEADLINE.split('').map((char, i) => {
-              // "JOURNEY TO MARS" — MARS starts at index 11
-              const isMarsLetter = i >= 11;
+            {HEADLINE.split(' ').map((word, wordIndex, wordsArray) => {
+              const startIndex = wordsArray.slice(0, wordIndex).join(' ').length + (wordIndex > 0 ? 1 : 0);
               return (
-                <motion.span
-                  key={i}
-                  custom={i}
-                  variants={shouldReduce ? reducedLetterVariants : letterVariants}
-                  initial="hidden"
-                  animate="visible"
-                  className="inline-block gpu-accelerated"
-                  style={{
-                    marginRight: char === ' ' ? '0.25em' : '0',
-                    color: isMarsLetter ? 'var(--color-launch)' : 'var(--color-star-white)',
-                  }}
-                >
-                  {char === ' ' ? '\u00A0' : char}
-                </motion.span>
+                <span key={wordIndex} className="inline-block whitespace-nowrap mr-[0.25em] last:mr-0">
+                  {word.split('').map((char, cIndex) => {
+                    const globalIndex = startIndex + cIndex;
+                    const isMarsLetter = globalIndex >= 11;
+                    return (
+                      <motion.span
+                        key={cIndex}
+                        custom={globalIndex}
+                        variants={shouldReduce ? reducedLetterVariants : letterVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="inline-block gpu-accelerated"
+                        style={{
+                          color: isMarsLetter ? 'var(--color-launch)' : 'var(--color-star-white)',
+                        }}
+                      >
+                        {char}
+                      </motion.span>
+                    );
+                  })}
+                </span>
               );
             })}
           </h1>

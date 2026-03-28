@@ -91,16 +91,19 @@ export default function Cursor() {
         style={{
           x: ringX,
           y: ringY,
-          width: 32,
-          height: 32,
-          border: `1.5px solid ${isHovering ? 'var(--color-glow)' : 'rgba(232,234,240,0.5)'}`,
+          width: 40,
+          height: 40,
           translateX: '-50%',
           translateY: '-50%',
           zIndex: 'var(--z-cursor)',
         }}
         animate={{
-          scale: isClicking ? 1.5 : isHovering ? 2 : 1,
+          scale: isClicking ? 1.5 : isHovering ? 2.5 : 1,
           borderColor: isHovering ? 'var(--color-glow)' : 'rgba(232,234,240,0.5)',
+          borderWidth: isHovering ? '2px' : '1.5px',
+          borderStyle: 'solid',
+          boxShadow: isHovering ? '0 0 12px var(--color-glow), inset 0 0 6px var(--color-glow)' : 'none',
+          backgroundColor: isHovering ? 'rgba(0, 212, 255, 0.1)' : 'transparent',
         }}
         transition={{ type: 'spring', stiffness: 400, damping: 20 }}
       />

@@ -34,7 +34,7 @@ export default function CrewCard({ member, index = 0 }) {
       data-cursor="hover"
     >
       <motion.div
-        className="relative w-full h-full gpu-accelerated"
+        className="relative w-full h-full"
         style={{ transformStyle: 'preserve-3d' }}
         animate={{ rotateY: isFlipped ? 180 : 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -58,7 +58,7 @@ export default function CrewCard({ member, index = 0 }) {
         {/* FRONT */}
         <div
           className="absolute inset-0 glass-strong p-5 flex flex-col justify-between"
-          style={{ backfaceVisibility: 'hidden' }}
+          style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
         >
           {/* Top */}
           <div>
@@ -80,7 +80,7 @@ export default function CrewCard({ member, index = 0 }) {
         {/* BACK */}
         <div
           className="absolute inset-0 glass-strong p-5 flex flex-col justify-between"
-          style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+          style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
         >
           <div>
             <p className="text-xs tracking-[0.15em] text-glow/60 uppercase mb-2">Personnel File</p>

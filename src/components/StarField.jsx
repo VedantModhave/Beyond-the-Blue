@@ -74,15 +74,28 @@ function Earth({ visible }) {
   });
 
   return (
-    <mesh ref={ref} position={[4, 1.5, -5]} visible={visible}>
-      <sphereGeometry args={[2.5, 64, 64]} />
-      <meshPhongMaterial
-        color="#1a6cf6"
-        emissive="#0a2a5e"
-        emissiveIntensity={0.3}
-        shininess={30}
-      />
-    </mesh>
+    <group ref={ref} position={[4, 1.5, -5]} visible={visible}>
+      <mesh>
+        <sphereGeometry args={[2.5, 64, 64]} />
+        <meshStandardMaterial
+          color="#1a6cf6"
+          emissive="#081e3f"
+          emissiveIntensity={0.2}
+          roughness={0.4}
+          metalness={0.1}
+        />
+      </mesh>
+      {/* Subtle wireframe overlay */}
+      <mesh>
+        <sphereGeometry args={[2.51, 32, 32]} />
+        <meshBasicMaterial
+          color="#4488ff"
+          wireframe
+          transparent
+          opacity={0.15}
+        />
+      </mesh>
+    </group>
   );
 }
 
