@@ -1,0 +1,242 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   CSS CUSTOM PROPERTIES — DESIGN TOKENS
+   ============================================ */
+:root {
+  --color-space-black: #03060f;
+  --color-deep-navy: #050d2e;
+  --color-electric: #1a6cf6;
+  --color-launch: #ff5c1a;
+  --color-mars-red: #c1440e;
+  --color-rust: #8b2500;
+  --color-dust: #d4956a;
+  --color-glow: #00d4ff;
+  --color-star-white: #e8eaf0;
+
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  --z-starfield: 0;
+  --z-content: 1;
+  --z-nav: 50;
+  --z-cursor: 100;
+  --z-loader: 200;
+
+  --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ============================================
+   BASE RESET & GLOBAL STYLES
+   ============================================ */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-space-black);
+  color: var(--color-star-white);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Hide default cursor on desktop */
+@media (max-width: 767px) {
+  body {
+    cursor: auto;
+  }
+}
+
+/* ============================================
+   SELECTION
+   ============================================ */
+::selection {
+  background: var(--color-electric);
+  color: var(--color-star-white);
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-space-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-electric);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-glow);
+}
+
+/* ============================================
+   GPU-COMPOSITED ANIMATION HELPERS
+   ============================================ */
+.gpu-accelerated {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* ============================================
+   GLASSMORPHISM UTILITY
+   ============================================ */
+.glass {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+}
+
+/* ============================================
+   FOCUS VISIBLE
+   ============================================ */
+*:focus-visible {
+  outline: 2px solid var(--color-glow);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ============================================
+   COUNTDOWN FLIP ANIMATION
+   ============================================ */
+.flip-card {
+  perspective: 600px;
+  display: inline-block;
+}
+
+.flip-card-inner {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-style: preserve-3d;
+}
+
+.flip-card-inner.flipping {
+  transform: rotateX(-90deg);
+}
+
+/* ============================================
+   GLITCH EFFECT (Easter Egg)
+   ============================================ */
+@keyframes glitch {
+  0% { transform: translate(0); filter: none; }
+  10% { transform: translate(-3px, 2px); filter: hue-rotate(90deg); }
+  20% { transform: translate(3px, -2px); filter: hue-rotate(180deg); }
+  30% { transform: translate(-2px, -3px); filter: saturate(3); }
+  40% { transform: translate(2px, 3px); filter: hue-rotate(270deg); }
+  50% { transform: translate(-3px, 1px); filter: invert(0.2); }
+  60% { transform: translate(3px, -1px); filter: hue-rotate(120deg); }
+  70% { transform: translate(-1px, 3px); filter: saturate(5); }
+  80% { transform: translate(1px, -3px); }
+  90% { transform: translate(-2px, 2px); filter: hue-rotate(45deg); }
+  100% { transform: translate(0); filter: none; }
+}
+
+.glitch-overlay {
+  animation: glitch 0.3s ease-in-out infinite;
+}
+
+@keyframes rgbSplit {
+  0%, 100% {
+    text-shadow:
+      -2px 0 #ff0000,
+      2px 0 #00ffff;
+  }
+  25% {
+    text-shadow:
+      2px 0 #ff0000,
+      -2px 0 #00ffff;
+  }
+  50% {
+    text-shadow:
+      -1px 2px #ff0000,
+      1px -2px #00ffff;
+  }
+  75% {
+    text-shadow:
+      1px -1px #ff0000,
+      -1px 1px #00ffff;
+  }
+}
+
+.rgb-split {
+  animation: rgbSplit 0.2s ease-in-out infinite;
+}
+
+/* ============================================
+   FLAME KEYFRAMES
+   ============================================ */
+@keyframes flame {
+  0%, 100% {
+    transform: scaleY(1) scaleX(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scaleY(1.2) scaleX(0.85);
+    opacity: 1;
+  }
+}
+
+.flame-flicker {
+  animation: flame 0.12s ease-in-out infinite alternate;
+}
+
+/* ============================================
+   SCANNING LINE
+   ============================================ */
+@keyframes scanLine {
+  0% { top: -10%; }
+  100% { top: 110%; }
+}
+
+.scan-line::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-glow), transparent);
+  animation: scanLine 2.5s linear infinite;
+  opacity: 0.4;
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
