@@ -48,6 +48,3 @@ This generates a highly optimized static bundle inside the `dist/` folder ready 
 
 ## 🕹️ Easter Egg
 Type `HOUSTON` anywhere on the keyboard. See what happens.
-
----
-*Created for the Hackathon. Keep reaching for the stars.* 🌌
